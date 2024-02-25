@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Fund List</h2>
+  <form method="get" action="">
+    <label for="strategy_filter">Filter by Strategy:</label>
+    <select name="strategy_filter" id="strategy_filter">
+      <option value="" {% if not strategy_filter %} selected{% endif %}>All</option>
+      {% for strategy in strategies %}
+        <option value="{{strategy.value}}">{{strategy.label}}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Filter</button>
+  </form>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Strategy</th>
+        <th>AUM</th>
+        {# Add other fields as needed #}
+      </tr>
+    </thead>
+    <tbody>
+      {% for fund in funds %}
+        <tr>
+          <td>{{ fund.name }}</td>
+          <td>{{ fund.get_strategy_display }}</td>
+          <td>{{ fund.aum }}</td>
+          {# Add other fields as needed #}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p>Total number of funds: {{ total_funds }}</p>
+  <p>Total AUM: {{ total_aum }}</p>
+{% endblock %}
